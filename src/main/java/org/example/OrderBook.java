@@ -32,9 +32,9 @@ public class OrderBook {
     public void market_order(String[] fields) {
         int size = Integer.parseInt(fields[2]);
         if (fields[1].equals("buy")) {
-            execute_market_order(size, asks, true);
+            execute_market_order(size, asks);
         } else if (fields[1].equals("sell")) {
-            execute_market_order(size, bids, false);
+            execute_market_order(size, bids);
         }
     }
 
@@ -57,9 +57,9 @@ public class OrderBook {
         }
     }
 
-    private void execute_market_order(int size, TreeMap<Integer, Integer> book, boolean ascending) {
+    private void execute_market_order(int size, TreeMap<Integer, Integer> book) {
         while (size > 0 && !book.isEmpty()) {
-            int price = ascending ? book.lastKey() : book.firstKey();
+            int price = book.firstKey();
             int book_size = book.get(price);
             if (book_size <= size) {
                 size -= book_size;
